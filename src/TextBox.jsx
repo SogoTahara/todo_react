@@ -1,0 +1,120 @@
+import React,{useState,useEffect} from 'react'
+import axios from "axios";
+import TodoItem from './components/TodoItem';
+import FilterButtons from './components/FilterButtons';
+import SearchBox from './components/SearchBox';
+import WeatherBox from './components/WeatherBox';
+
+
+export default function TextBox() {
+  const [texts, setTexts] = React.useState('');
+  const [editId, setEditId] = React.useState(''); 
+  const [editText, setEditText] = React.useState('');  
+  const [filter, setFilter] = useState("all"); 
+  const [weather, setWeather] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  
+  const [list, setList] = React.useState(() => {
+  const stored = localStorage.getItem('toStoreList');
+  return stored ? JSON.parse(stored) : [];
+});
+
+  useEffect(() => {
+    localStorage.setItem('toStoreList', JSON.stringify(list));
+  }, [list]);
+
+  useEffect(() => {
+  async function fetchWeather() {
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=29cd82944cd98510ebf947ea751867ea&units=metric&lang=ja`
+      );
+      setWeather(res.data);
+    } catch (err) {
+      console.error("天気取得失敗", err);
+    }
+  }
+  fetchWeather();
+}, []);
+
+
+  const showList = list
+  .filter((item) => {
+    if (filter === "completed") return item.isCompleted;
+    if (filter === "incomplete") return !item.isCompleted;
+    return true;
+  })
+   .filter((item) =>
+    item.text.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+
+  function Typing(e) {
+    setTexts(e.target.value);
+  }
+
+  function Add () {
+    if (texts === '') {
+      alert('空欄です');
+    } else {
+      setList([...list, { id: Date.now(), text: texts, isCompleted: false }]);
+      setTexts('');
+    }
+  }
+  function Delete(id) {
+    setList(list.filter(item => item.id !== id));
+  }
+ function Switch(id) {
+  setList(list.map((item) =>
+    item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
+  ));
+}
+
+  function Edit(id) {
+ const target = list.find((item) => item.id === id);
+   if (target) {
+    setEditId(id);
+    setEditText(target.text);
+   }
+ }
+  function ConfirmEdit() {
+    setList(list.map((item) =>
+      item.id === editId ? { ...item, text: editText } : item
+    ))
+    setEditId('')
+    setEditText('')
+  }
+
+  return (
+  <div className="container py-4">
+      <div className="row">
+       <FilterButtons filter={filter} setFilter={setFilter}/>
+        {showList.map(item => (
+          <TodoItem
+          key={item.id}
+          item={item}
+          editId={editId}
+          editText={editText}
+          setEditText={setEditText}
+          Edit={Edit}
+          ConfirmEdit={ConfirmEdit}
+          Switch={Switch}
+          Delete={Delete}
+        />
+        ))}
+      </div>
+      <p className="text-secondary">入力中, {texts}</p>
+      <input type="text" value={texts} onChange={Typing} className="border border-dark"/>
+      <button className="btn btn-primary" onClick={Add}>
+        追加
+      </button> 
+
+   <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
+  <WeatherBox weather={weather}/>
+
+ </div>
+  );
+}
+
