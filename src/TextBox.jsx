@@ -27,8 +27,9 @@ export default function TextBox() {
   useEffect(() => {
   async function fetchWeather() {
     try {
+      const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=29cd82944cd98510ebf947ea751867ea&units=metric&lang=ja`
+        `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=${apiKey}&units=metric&lang=ja`
       );
       setWeather(res.data);
     } catch (err) {
