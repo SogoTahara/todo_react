@@ -1,6 +1,11 @@
 import React from "react"
 
-export default function FilterButtons({filter,setFilter}){
+type FilterButtonsProps = {
+  filter: "all" | "completed" | "incomplete";
+  setFilter: (filter: "all" | "completed" | "incomplete")=> void;
+}
+
+export default function FilterButtons({filter ,setFilter}: FilterButtonsProps){
   return(
   
   <div className="mb-3">

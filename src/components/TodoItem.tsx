@@ -1,6 +1,23 @@
   import React from "react";
 
-  export default function TodoItem({item,editId,editText,setEditText,ConfirmEdit,Switch,Edit,Delete  }) {
+  type Todo = {
+  id: number;
+  text: string;
+  isCompleted: boolean;
+};
+
+type TodoItemProps = {
+  item: Todo;
+  editId: number | null;
+  editText: string;
+  setEditText: (value: string) => void;
+  ConfirmEdit: () => void;
+  Switch: (id: number) => void;
+  Edit: (id: number) => void;
+  Delete: (id: number) => void;
+};
+
+  export default function TodoItem({item,editId,editText,setEditText,ConfirmEdit,Switch,Edit,Delete  }: TodoItemProps) {
   return (
   
       <div

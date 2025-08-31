@@ -1,0 +1,26 @@
+{
+  // tsconfig の詳細は https://aka.ms/tsconfig を参照
+  "compilerOptions": {
+    /* 基本環境 */
+    "target": "ESNext",                 // 最新のJSにトランスパイル
+    "module": "ESNext",                 // ES Modulesを使う
+    "lib": ["ESNext", "DOM"],           // DOM APIも型チェック対象にする
+    "jsx": "react-jsx",                 // React 17+ JSX変換
+    "moduleResolution": "node",         // import解決方法 (Vite/Node向け)
+    "resolveJsonModule": true,          // JSON importを許可
+    "isolatedModules": true,            // Viteが推奨（1ファイルごとにコンパイル可能に）
+
+    /* 型チェック */
+    "strict": true,                     // 厳格モードON
+    "esModuleInterop": true,            // CommonJS互換import許可
+    "skipLibCheck": true,               // node_modulesの型はチェックしない
+    "forceConsistentCasingInFileNames": true, // import時の大文字小文字ミス防止
+
+    /* 出力関連（Viteは基本 noEmit なのでおまけ） */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": ["src"],                   // srcフォルダ内を型チェック対象にする
+  "exclude": ["node_modules", "dist"]   // 除外フォルダ
+}

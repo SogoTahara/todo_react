@@ -1,24 +1,29 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
-import TodoItem from './components/TodoItem';
-import FilterButtons from './components/FilterButtons';
-import SearchBox from './components/SearchBox';
-import WeatherBox from './components/WeatherBox';
+import TodoItem from './components/TodoItem.js';
+import FilterButtons from './components/FilterButtons.js';
+import SearchBox from './components/SearchBox.js';
+import WeatherBox from './components/WeatherBox.js';
 
+
+type Todo = {
+  id: number;
+  text: string;
+  isCompleted: boolean;
+};
 
 export default function TextBox() {
-  const [texts, setTexts] = React.useState('');
-  const [editId, setEditId] = React.useState(''); 
-  const [editText, setEditText] = React.useState('');  
-  const [filter, setFilter] = useState("all"); 
-  const [weather, setWeather] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [texts, setTexts] = useState<string>('');
+  const [editId, setEditId] = useState<number | null>(null);
+  const [editText, setEditText] = useState<string>('');  
+  const [filter, setFilter] = useState<"all" | "completed" | "incomplete">("all"); 
+  const [weather, setWeather] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
-  
-  const [list, setList] = React.useState(() => {
-  const stored = localStorage.getItem('toStoreList');
-  return stored ? JSON.parse(stored) : [];
-});
+  const [list, setList] = useState<Todo[]>(() => {
+    const stored = localStorage.getItem('toStoreList');
+    return stored ? JSON.parse(stored) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('toStoreList', JSON.stringify(list));
@@ -51,7 +56,7 @@ export default function TextBox() {
   );
 
 
-  function Typing(e) {
+  function Typing(e: React.ChangeEvent<HTMLInputElement>) {
     setTexts(e.target.value);
   }
 
@@ -63,16 +68,16 @@ export default function TextBox() {
       setTexts('');
     }
   }
-  function Delete(id) {
+  function Delete(id: number) {
     setList(list.filter(item => item.id !== id));
   }
- function Switch(id) {
+ function Switch(id: number) {
   setList(list.map((item) =>
     item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
   ));
 }
 
-  function Edit(id) {
+  function Edit(id: number) {
  const target = list.find((item) => item.id === id);
    if (target) {
     setEditId(id);
@@ -83,7 +88,7 @@ export default function TextBox() {
     setList(list.map((item) =>
       item.id === editId ? { ...item, text: editText } : item
     ))
-    setEditId('')
+    setEditId(null)
     setEditText('')
   }
 

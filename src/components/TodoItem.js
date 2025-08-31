@@ -1,0 +1,6 @@
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+export default function TodoItem({ item, editId, editText, setEditText, ConfirmEdit, Switch, Edit, Delete }) {
+    return (_jsx("div", { className: "col-12 col-md-6 d-flex align-items-center " +
+            (item.isCompleted ? "text-decoration-line-through" : ""), children: editId === item.id ? (_jsxs(_Fragment, { children: [_jsx("input", { type: "text", value: editText, onChange: (e) => setEditText(e.target.value), className: "form-control me-2" }), _jsx("button", { className: "btn btn-sm btn-success", onClick: ConfirmEdit, children: "\u4FDD\u5B58" })] })) : (_jsxs(_Fragment, { children: [item.text, item.isCompleted ? (_jsx("button", { className: "btn btn-success", onClick: () => Switch(item.id), children: "\u5B8C\u4E86" })) : (_jsx("button", { className: "btn btn-danger", onClick: () => Switch(item.id), children: "\u672A\u5B8C\u4E86" })), _jsx("button", { className: "btn btn-sm btn-outline-primary", onClick: () => Edit(item.id), children: "\u7DE8\u96C6" }), _jsx("button", { className: "btn btn-sm btn-outline-danger", onClick: () => Delete(item.id), children: "\u524A\u9664" })] })) }, item.id));
+}
+//# sourceMappingURL=TodoItem.js.map
