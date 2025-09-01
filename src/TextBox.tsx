@@ -6,11 +6,12 @@ import SearchBox from './components/SearchBox.js';
 import WeatherBox from './components/WeatherBox.js';
 
 
-type Todo = {
+interface Todo {
   id: number;
   text: string;
   isCompleted: boolean;
-};
+}
+
 
 export default function TextBox() {
   const [texts, setTexts] = useState<string>('');
