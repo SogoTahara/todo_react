@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
-import TodoItem from './components/TodoItem.js';
-import FilterButtons from './components/FilterButtons.js';
-import SearchBox from './components/SearchBox.js';
-import WeatherBox from './components/WeatherBox.js';
+import TodoItem from './components/TodoItem';
+import FilterButtons from './components/FilterButtons';
+import SearchBox from './components/SearchBox';
+import WeatherBox from './components/WeatherBox';
 
 
 interface Todo {
