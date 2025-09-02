@@ -25,3 +25,7 @@ dist-ssr
 
 .env
 
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
