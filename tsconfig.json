@@ -19,8 +19,12 @@
     /* 出力関連（Viteは基本 noEmit なのでおまけ） */
     "sourceMap": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+
+    "types": ["vitest/globals"]
   },
-  "include": ["src"],                   // srcフォルダ内を型チェック対象にする
+  // "include": ["src"],                   // srcフォルダ内を型チェック対象にする
   "exclude": ["node_modules", "dist"]   // 除外フォルダ
+
+
 }
