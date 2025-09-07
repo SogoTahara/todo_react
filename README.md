@@ -15,11 +15,13 @@
 - OpenWeather API で東京の天気を取得
 
 ## 使用技術
-- React 18 + TypeScript
+- TypeScript
+- React(useEffect + useReducer)
 - Vite
 - Bootstrap 5
 - Axios
 - OpenWeather API
+- vitest + React Testing Library
 
 ## 工夫した点 / 学び
 - TypeScript で型定義を行い、安全な状態管理
@@ -28,7 +30,7 @@
 - UI/UX 改善のため検索やフィルタリングを導入
 
 ## 今後やりたいこと
-- テストコード
+- 更なるテストコード
 - UI改善やデザイン向上
 - ログイン機能や、バックエンドとの連携
 
