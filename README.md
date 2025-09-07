@@ -4,7 +4,7 @@
 タスク管理に加えて、OpenWeather API を利用して「今日の東京の天気」も表示します。  
 フロントエンド長期インターンを目指して、React/TypeScript の基礎を実践的に学びました。
 
-##　リンク
+## リンク
 https://todo-react-git-main-sougos-projects-21194172.vercel.app?_vercel_share=1SJlTwKEj6fidNNj16YfoSbUF13xPEqN
 
 ## 見た目
