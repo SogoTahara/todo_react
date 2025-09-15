@@ -3,7 +3,7 @@ import axios from "axios";
 import TodoItem from './components/TodoItem';
 import FilterButtons from './components/FilterButtons';
 import SearchBox from './components/SearchBox';
-import WeatherBox from './components/WeatherBox';
+
 
 
 interface Todo {
@@ -19,7 +19,6 @@ const initialState = {
   searchTerm: '',
   editId: null as number | null,
   editText: '',
-  weather: null as any,
 };
 
 function reducer(state: typeof initialState, action: any): typeof initialState {
@@ -31,6 +30,9 @@ function reducer(state: typeof initialState, action: any): typeof initialState {
         alert('空欄です');
         return state;
       }
+
+       console.log('新しい list:', [...state.list, { id: Date.now(), text: state.texts, isCompleted: false }] );
+
       return {
         ...state,
         list: [...state.list, { id: Date.now(), text: state.texts, isCompleted: false }],
@@ -65,8 +67,6 @@ function reducer(state: typeof initialState, action: any): typeof initialState {
       return { ...state, filter: action.payload };
     case 'SET_SEARCH':
       return { ...state, searchTerm: action.payload };
-    case 'SET_WEATHER':
-      return { ...state, weather: action.payload };
     default:
       return state;
   }
@@ -77,31 +77,26 @@ export default function TextBox() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
 
-   useEffect(() => {
-    const stored = localStorage.getItem('toStoreList');
-    if (stored) {
-      dispatch({ type: 'SET_LIST', payload: JSON.parse(stored) });
-    }
-  }, []);
+  
+const [isInitialized, setIsInitialized] = React.useState(false);
 
-  useEffect(() => {
-    localStorage.setItem('toStoreList', JSON.stringify(state.list));
-  }, [state.list]);
-
-  useEffect(() => {
-  async function fetchWeather() {
+useEffect(() => {
+  const stored = localStorage.getItem('toStoreList');
+  if (stored) {
     try {
-      const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
-      const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=${apiKey}&units=metric&lang=ja`
-      );
-      dispatch({ type: 'SET_WEATHER', payload: res.data });
-    } catch (err) {
-      console.error("天気取得失敗", err);
+      dispatch({ type: 'SET_LIST', payload: JSON.parse(stored) });
+    } catch (error) {
+      console.error("localStorageの読み込みに失敗:", error);
     }
   }
-  fetchWeather();
+  setIsInitialized(true);
 }, []);
+
+useEffect(() => {
+  if (isInitialized) {
+    localStorage.setItem('toStoreList', JSON.stringify(state.list));
+  }
+}, [state.list, isInitialized]);
 
 
   const showList = state.list
@@ -146,13 +141,13 @@ export default function TextBox() {
       <button className="btn btn-primary" onClick={() => dispatch({ type: 'ADD_TODO' })}>
         追加
       </button>
-
+      
       <SearchBox
         searchTerm={state.searchTerm}
         setSearchTerm={(val) => dispatch({ type: 'SET_SEARCH', payload: val })}
       />
 
-      <WeatherBox weather={state.weather} />
+     
     </div>
   );
 }
