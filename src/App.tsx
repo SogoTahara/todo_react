@@ -36,15 +36,15 @@ export default function App() {
         ))}
       </nav>
 
-      <div className="mb-3">
+     <div>
         <input
           type="text"
           value={newPage}
           onChange={(e) => setNewPage(e.target.value)}
           placeholder="新しいページ名"
-          className="border border-dark me-2"
+          className="border border-dark me-2 "
         />
-        <button className="btn btn-primary" onClick={addPage}>
+        <button className="btn btn-sm btn-primary" onClick={addPage}>
           ページ追加
         </button>
       </div>

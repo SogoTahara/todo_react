@@ -107,7 +107,13 @@ useEffect(() => {
 
    return (
  <div className="container py-4">
-      <div className="row">
+
+    <SearchBox
+        searchTerm={state.searchTerm}
+        setSearchTerm={(val) => dispatch({ type: 'SET_SEARCH', payload: val })}
+      />
+
+    <div className="row">
         <FilterButtons
           filter={state.filter}
           setFilter={(f) => dispatch({ type: 'SET_FILTER', payload: f })}
@@ -127,16 +133,19 @@ useEffect(() => {
         ))}
       </div>
 
-      <p className="text-secondary">入力中: {state.texts}</p>
+      <div className='my-3'>
       <input
         type="text"
         value={state.texts}
         onChange={(e) => dispatch({ type: 'SET_TEXTS', payload: e.target.value })}
         className="border border-dark"
+        style={{ height: '40px', fontSize: '20px' }}
+        placeholder="タスクを追加"
       />
       
       <button
        className="btn btn-primary"
+       style={{ height: '45px'}}
        onClick={() => {
        if (state.texts === '') {
         alert('空欄です');
@@ -156,13 +165,7 @@ useEffect(() => {
       >
        追加
      </button>
- 
-      
-      <SearchBox
-        searchTerm={state.searchTerm}
-        setSearchTerm={(val) => dispatch({ type: 'SET_SEARCH', payload: val })}
-      />
-
+     </div>
      
     </div>
   );

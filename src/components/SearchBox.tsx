@@ -8,11 +8,10 @@ type SearchBoxProps = {
 export default function SearchBox({searchTerm,setSearchTerm}: SearchBoxProps){
 return(
 
-<div className="my-3">
+<div className="mb-3">
       <input
       type="text"
-      className="form-control"
-      placeholder="検索..."
+      placeholder="検索...🔎"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
       />
