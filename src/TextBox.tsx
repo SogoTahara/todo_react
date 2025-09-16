@@ -3,6 +3,7 @@ import axios from "axios";
 import TodoItem from './components/TodoItem';
 import FilterButtons from './components/FilterButtons';
 import SearchBox from './components/SearchBox';
+import { normalizePath } from 'vite';
 
 
 
@@ -25,42 +26,49 @@ function reducer(state: typeof initialState, action: any): typeof initialState {
   switch (action.type) {
     case 'SET_TEXTS':
       return { ...state, texts: action.payload };
-    case 'ADD_TODO':
-      if (state.texts === '') {
-        alert('空欄です');
-        return state;
-      }
 
-       console.log('新しい list:', [...state.list, { id: Date.now(), text: state.texts, isCompleted: false }] );
+    
+ case 'DELETE_TODO':
+  axios.delete(`http://localhost:3001/todos/${action.payload}`);
+  return {
+    ...state,
+    list: state.list.filter((item) => item.id !== action.payload),
+  };
 
-      return {
-        ...state,
-        list: [...state.list, { id: Date.now(), text: state.texts, isCompleted: false }],
-        texts: '',
-      };
-    case 'DELETE_TODO':
-      return { ...state, list: state.list.filter((item) => item.id !== action.payload) };
-    case 'SWITCH_TODO':
-      return {
-        ...state,
-        list: state.list.map((item) =>
-          item.id === action.payload ? { ...item, isCompleted: !item.isCompleted } : item
-        ),
-      };
+     case 'SWITCH_TODO':
+  const switchTarget = state.list.find(item => item.id === action.payload);
+  if (!switchTarget) return state;
+
+  const toggled = { ...switchTarget, isCompleted: !switchTarget.isCompleted };
+  axios.put(`http://localhost:3001/todos/${action.payload}`, toggled);
+
+  return {
+    ...state,
+    list: state.list.map((item) =>
+      item.id === action.payload ? toggled : item
+    ),
+  };
+
     case 'EDIT':
       const target = state.list.find((item) => item.id === action.payload);
       return target ? { ...state, editId: target.id, editText: target.text } : state;
     case 'SET_EDIT_TEXT':
       return { ...state, editText: action.payload };
-    case 'CONFIRM_EDIT':
-      return {
-        ...state,
-        list: state.list.map((item) =>
-          item.id === state.editId ? { ...item, text: state.editText } : item
-        ),
-        editId: null,
-        editText: '',
-      };
+   case 'CONFIRM_EDIT':
+  axios.put(`http://localhost:3001/todos/${state.editId}`, {
+    ...state.list.find(item => item.id === state.editId),
+    text: state.editText,
+  });
+
+  return {
+    ...state,
+    list: state.list.map((item) =>
+      item.id === state.editId ? { ...item, text: state.editText } : item
+    ),
+    editId: null,
+    editText: '',
+  };
+
     case 'SET_LIST':
     return { ...state, list: action.payload };
     case 'SET_FILTER':
@@ -77,26 +85,14 @@ export default function TextBox() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
 
-  
-const [isInitialized, setIsInitialized] = React.useState(false);
-
 useEffect(() => {
-  const stored = localStorage.getItem('toStoreList');
-  if (stored) {
-    try {
-      dispatch({ type: 'SET_LIST', payload: JSON.parse(stored) });
-    } catch (error) {
-      console.error("localStorageの読み込みに失敗:", error);
-    }
-  }
-  setIsInitialized(true);
+  axios.get("http://localhost:3001/todos")
+    .then((res) => {
+      dispatch({ type: 'SET_LIST', payload: res.data });
+    });
 }, []);
 
-useEffect(() => {
-  if (isInitialized) {
-    localStorage.setItem('toStoreList', JSON.stringify(state.list));
-  }
-}, [state.list, isInitialized]);
+
 
 
   const showList = state.list
@@ -138,9 +134,29 @@ useEffect(() => {
         onChange={(e) => dispatch({ type: 'SET_TEXTS', payload: e.target.value })}
         className="border border-dark"
       />
-      <button className="btn btn-primary" onClick={() => dispatch({ type: 'ADD_TODO' })}>
-        追加
-      </button>
+      
+      <button
+       className="btn btn-primary"
+       onClick={() => {
+       if (state.texts === '') {
+        alert('空欄です');
+       return;
+       }
+      axios.post("http://localhost:3001/todos", {
+       text: state.texts,
+       isCompleted: false
+      }).then(res => {
+      dispatch({
+        type: 'SET_LIST',
+        payload: [...state.list, res.data],
+         });
+      dispatch({ type: 'SET_TEXTS', payload: '' });
+      });
+     }}
+      >
+       追加
+     </button>
+ 
       
       <SearchBox
         searchTerm={state.searchTerm}
@@ -151,3 +167,6 @@ useEffect(() => {
     </div>
   );
 }
+
+// json-server --watch db.json --port 3001
+// npm run dev
