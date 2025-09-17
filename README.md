@@ -14,21 +14,23 @@ https://todo-react-git-main-sougos-projects-21194172.vercel.app?_vercel_share=1S
 - ToDo の追加・編集・削除
 - 完了/未完了の切り替え
 - フィルタリング（全て / 完了 / 未完了）
-- 検索機能
+- タスクの検索
+- ページ追加
 - OpenWeather API で東京の天気を取得
 
 ## 使用技術
 - TypeScript
-- React(useEffect + useReducer)
+- React(useEffect + useReducer + React Router)
 - Vite
 - Bootstrap 5
 - Axios
+- json-server
 - OpenWeather API
 - vitest + React Testing Library
 
 ## 工夫した点 / 学び
 - TypeScript で型定義を行い、安全な状態管理
-- `localStorage` によるタスクの永続化
+- `json-server`を使ったデータ保存 
 - API Key を `.env` ファイルで管理
 - UI/UX 改善のため検索やフィルタリングを導入
 

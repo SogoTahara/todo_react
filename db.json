@@ -2,47 +2,42 @@
   "todos": [
     {
       "id": "f328",
-      "text": "jijファイル名",
+      "text": "スーパーで買い物",
       "isCompleted": false
     },
     {
       "id": "aba4",
-      "text": "s十分",
+      "text": "洗濯物たたむ",
       "isCompleted": true
     },
     {
       "id": "f8ca",
-      "text": "g",
+      "text": "歯医者さんに行く",
       "isCompleted": false
     },
     {
       "id": "b752",
-      "text": "rgwgr",
+      "text": "大学に忘れ物",
       "isCompleted": false
     },
     {
       "id": "ef62",
-      "text": "gr",
+      "text": "英単語30個覚える",
       "isCompleted": true
     },
     {
       "id": "cf7b",
-      "text": "ｍｋｋｋ",
+      "text": "授業のレポート",
       "isCompleted": false
     },
     {
       "id": "2f11",
-      "text": "じ",
+      "text": "夜ごはん何にする",
       "isCompleted": false
     },
     {
       "id": "4290",
-      "text": "じｈｈｈ",
-      "isCompleted": false
-    },
-    {
-      "id": "7c5c",
-      "text": "ひｊ",
+      "text": "友達と野球しに行く",
       "isCompleted": false
     }
   ]
