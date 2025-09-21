@@ -17,9 +17,9 @@
     "forceConsistentCasingInFileNames": true, // import時の大文字小文字ミス防止
 
     /* 出力関連（Viteは基本 noEmit なのでおまけ） */
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
 
     "types": ["vitest/globals"]
   },
