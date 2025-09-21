@@ -106,34 +106,10 @@ useEffect(() => {
     );
 
    return (
+
  <div className="container py-4">
 
-    <SearchBox
-        searchTerm={state.searchTerm}
-        setSearchTerm={(val) => dispatch({ type: 'SET_SEARCH', payload: val })}
-      />
-
-    <div className="row">
-        <FilterButtons
-          filter={state.filter}
-          setFilter={(f) => dispatch({ type: 'SET_FILTER', payload: f })}
-        />
-        {showList.map((item) => (
-          <TodoItem
-            key={item.id}
-            item={item}
-            editId={state.editId}
-            editText={state.editText}
-            setEditText={(val) => dispatch({ type: 'SET_EDIT_TEXT', payload: val })}
-            Edit={(id) => dispatch({ type: 'EDIT', payload: id })}
-            ConfirmEdit={() => dispatch({ type: 'CONFIRM_EDIT' })}
-            Switch={(id) => dispatch({ type: 'SWITCH_TODO', payload: id })}
-            Delete={(id) => dispatch({ type: 'DELETE_TODO', payload: id })}
-          />
-        ))}
-      </div>
-
-      <div className='my-3'>
+    <div className='my-3'>
       <input
         type="text"
         value={state.texts}
@@ -166,6 +142,34 @@ useEffect(() => {
        追加
      </button>
      </div>
+
+     <FilterButtons
+        filter={state.filter}
+        setFilter={(f) => dispatch({ type: 'SET_FILTER', payload: f })}
+     />
+    
+    <div className="row">
+       
+        {showList.map((item) => (
+          <TodoItem
+            key={item.id}
+            item={item}
+            editId={state.editId}
+            editText={state.editText}
+            setEditText={(val) => dispatch({ type: 'SET_EDIT_TEXT', payload: val })}
+            Edit={(id) => dispatch({ type: 'EDIT', payload: id })}
+            ConfirmEdit={() => dispatch({ type: 'CONFIRM_EDIT' })}
+            Switch={(id) => dispatch({ type: 'SWITCH_TODO', payload: id })}
+            Delete={(id) => dispatch({ type: 'DELETE_TODO', payload: id })}
+          />
+        ))}
+      </div>
+
+      <SearchBox
+        searchTerm={state.searchTerm}
+        setSearchTerm={(val) => dispatch({ type: 'SET_SEARCH', payload: val })}
+      />
+      
      
     </div>
   );
