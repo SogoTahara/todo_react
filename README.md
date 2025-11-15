@@ -2,7 +2,7 @@
 
 フロントエンド学習用に制作した ToDo アプリです。  
 タスク管理に加えて、OpenWeather API を利用して「今日の東京の天気」も表示します。  
-フロントエンド長期インターンを目指して、React/TypeScript の基礎を実践的に学びました。
+React/TypeScript,テストの基礎を実践的に学びました。
 
 ## セットアップ手順
 1. リポジトリを clone
@@ -44,12 +44,14 @@ https://todo-react-git-main-sougos-projects-21194172.vercel.app?_vercel_share=1S
 - json-server
 - OpenWeather API
 - vitest + React Testing Library
+- Cypress
 
 ## 工夫した点 / 学び
 - TypeScript で型定義を行い、安全な状態管理
 - `json-server`を使ったデータ保存 
 - API Key を `.env` ファイルで管理
 - UI/UX 改善のため検索やフィルタリングを導入
+- Cypress,Jestでの自動テスト
 
 ## 今後やりたいこと
 - 更なるテストコード
