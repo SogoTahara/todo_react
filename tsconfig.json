@@ -21,10 +21,14 @@
     "declaration": false,
     "declarationMap": false,
 
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals","cypress"]
   },
   // "include": ["src"],                   // srcフォルダ内を型チェック対象にする
-  "exclude": ["node_modules", "dist"]   // 除外フォルダ
+  "exclude": ["node_modules", "dist"],  // 除外フォルダ
+  "include": [
+    "src",
+    "cypress"
+  ]
 
 
 }

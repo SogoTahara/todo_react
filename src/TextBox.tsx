@@ -120,6 +120,7 @@ useEffect(() => {
       />
       
       <button
+       data-test="add-task"
        className="btn btn-primary"
        style={{ height: '45px'}}
        onClick={() => {
