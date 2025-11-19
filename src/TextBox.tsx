@@ -4,6 +4,7 @@ import TodoItem from './components/TodoItem';
 import FilterButtons from './components/FilterButtons';
 import SearchBox from './components/SearchBox';
 import { normalizePath } from 'vite';
+import cypress from 'cypress';
 
 
 
@@ -128,6 +129,11 @@ useEffect(() => {
         alert('空欄です');
        return;
        }
+       if (state.texts.length > 30) {
+        alert('30文字以内で入力してください');
+        return;
+      }
+
       axios.post("http://localhost:3001/todos", {
        text: state.texts,
        isCompleted: false
@@ -178,3 +184,5 @@ useEffect(() => {
 
 // json-server --watch db.json --port 3001
 // npm run dev
+// npx cypress open
+// npx cypress run
