@@ -25,7 +25,7 @@ it('1文字なら追加できる', () => {
 it('30文字なら追加できる', () => {
   cy.visit('http://localhost:5173')
 
-  const text30 = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+  const text30 = 'a'.repeat(30)
 
   cy.get('input[placeholder="タスクを追加"]').clear().type(text30)
   cy.get('[data-test="add-task"]').click()
@@ -36,7 +36,7 @@ it('30文字なら追加できる', () => {
 it('31文字以上では追加できない', () => {
   cy.visit('http://localhost:5173')
 
-  const text31 = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+  const text31 = 'a'.repeat(31)
 
   cy.get('input[placeholder="タスクを追加"]').clear().type(text31)
   cy.get('[data-test="add-task"]').click()
