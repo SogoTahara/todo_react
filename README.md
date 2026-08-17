@@ -2,7 +2,6 @@
 
 シンプルな ToDo アプリです。
 Cypressを用い、タスク操作やログインの流れなどを自動テストしています。
-React / TypeScript を中心に、状態管理・ルーティング・API連携・認証を一通り経験することを目的に開発しました。
 
 ## 見た目
 ![スクリーンショット](./images/image.png)
@@ -61,14 +60,6 @@ React / TypeScript を中心に、状態管理・ルーティング・API連携�
 - 「モバイル端末で入力欄をタップした時にキーボードが表示されるか」や「入力した時にplaceholderが消えるか」など、インターンで経験した手動テストのケースも考えたい。
 
 
-## 工夫した点 / 学び
-- Supabase,Expressを使ってフルスタックな構成に
-- API Key を `.env` ファイルで管理
-- UI/UX 改善のため検索やフィルタリング、未ログイン時に操作しようとした際のア　ラート誘導など
-- 文字数制限は境界付近で不具合が発生しやすいため、境界値を重点的に検証
-- ログインは認証状態の不具合がリスクにつながるため、優先的にテスト
-- 外部API連携は、APIキーの設定漏れや、環境移行などによる環境依存の不具合が多かったため、テストするべき箇所だと判断
-
 ## 今後やりたいこと
 - 更なるテスト理解
 - UI改善やデザイン向上
@@ -77,13 +68,11 @@ React / TypeScript を中心に、状態管理・ルーティング・API連携�
 
 ## 使用技術
 - TypeScript
-- React(useEffect + useReducer + React Router)
+- React
 - Vite
 - Bootstrap 5
-- Axios
 - Supabase
 - OpenWeather API
-- Node.js express
 - vitest + React Testing Library
 - Cypress
 
