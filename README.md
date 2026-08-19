@@ -68,11 +68,9 @@ Cypressを用い、タスク操作やログインの流れなどを自動テス�
 ## 使用技術
 - TypeScript
 - React
-- Vite
 - Bootstrap 5
 - Supabase
 - OpenWeather API
-- vitest + React Testing Library
 - Cypress
 
 ## セットアップ手順
